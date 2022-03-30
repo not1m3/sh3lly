@@ -11,7 +11,7 @@ This programm will create a ssh tunnel on the localhost or will connect to anoth
 
 ### Windows
 1. Download the zip and unzip it
-2. Download and install python [download link] https://www.python.org/downloads/)
+2. Download and install python [download link](https://www.python.org/downloads/)
 3. Install requirements: `pip install -r requirements.txt`
 4. Done
 
