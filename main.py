@@ -109,9 +109,6 @@ while True:
 		info[2] = str(input("Enter the password: ")).rstrip()
 	
 	elif '-v' in inp:
-		with open("version", 'r') as version:
-			text = version.readlines()
-			for e in text:
-				print(str(e))
+		print("1.1.0")
 	else:
 		print("Unknown command")
