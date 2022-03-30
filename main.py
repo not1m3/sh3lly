@@ -55,7 +55,7 @@ def tester(a, b, c, d):
 	
 print("[+]=================[+]")
 print("|+|WELCOME IN SH3LLY|+|")
-print("|+|For fun use only |+|")
+print("|+| Made by @not1m3 |+|")
 print("[+]=================[+]\n")
 
 info = ['none', 'none', 'none', 22]
