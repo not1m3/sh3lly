@@ -1,11 +1,28 @@
 from pwn import *
-from sshtunnel import *
+import paramiko
+import sshtunnel
 from sshtunnel import SSHTunnelForwarder
 import sys
 
-def run_tunnel(host, user, psw, port):
-	print("Non ancora sviluppata")
-
+def run_tunnel(server, user, psw, port):
+	ssh = paramiko.SSHClient()
+	ssh.connect(server, username=user, password=psw)
+	
+	print('Type "quit" to quit the shell')
+	
+	while True:
+		command = str(input("$ "))
+		
+		if command == "quit":
+			ssh.close()
+			return
+		
+		stdin, stdout, stderr = ssh.exec_command(command)
+		print(f'{ssh_stdout.read().decode("utf-8")}')
+		print(f'Errors: {ssh_stderr.read().decode("utf-8")}')	
+		stdin.close()
+		stdout.close()
+		stderr.close()
 
 #create a tunnel on the localhost
 def create_tunnel(ip, user, psw, port):
@@ -28,7 +45,6 @@ def create_tunnel(ip, user, psw, port):
 		if inp == 1:
 			client.close()
 			return
-
 		
 #test if the info were actually changed
 def tester(a, b, c, d):
@@ -55,9 +71,9 @@ while True:
 		print("-l 	list of variabiles")
 		print("-r	run the tunnel")
 		print("-c	create a ssh tunnel")
-		print("-ip 	change the ip")
+		print("-server 	change the server")
 		print("-user 	change the user") 
-		print("-pswd 	change the password")
+		print("-pswd	change the password")
 		print("-v	show the version of Sh3lly")
 		print("-q 	quit the session")
 		print("+++++++++++++++++++++++++++++++++++")
@@ -65,7 +81,7 @@ while True:
 	elif '-l' in inp:
 		print("Server: " + info[0])
 		print("User: " + info[1])
-		print("Passord: " + info[2])
+		print("Password: " + info[2])
 		print("Port : " + str(info[3]))
 			
 	elif '-q' in inp:
@@ -83,11 +99,11 @@ while True:
 		else:
 			print("You haven't enter any info yet (type -l for see infos)")
 	
-	elif '-ip' in inp:
-		info[0] = str(input("Enter the ip: ")).rstrip()
+	elif '-server' in inp:
+		info[0] = str(input("Enter the server name: ")).rstrip()
 	
 	elif '-user' in inp:
-		info[1] = str(input("Enter the host name: ")).rstrip()
+		info[1] = str(input("Enter the user name: ")).rstrip()
 	
 	elif '-pswd' in inp:
 		info[2] = str(input("Enter the password: ")).rstrip()
@@ -97,3 +113,5 @@ while True:
 			text = version.readlines()
 			for e in text:
 				print(str(e))
+	else:
+		print("Unknown command")
